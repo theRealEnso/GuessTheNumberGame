@@ -1,10 +1,18 @@
 import { Stack } from 'expo-router';
 
+// import provider from context
+import { NumberProvider } from '../context/numberContext';
+
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <NumberProvider>
+      <Stack screenOptions={{
+        contentStyle: { backgroundColor: "#25292e" },
+      }}>
+        <Stack.Screen name="index" options={{title: "Home", headerShown: false}} />
+        <Stack.Screen name="game-screen" options={{title: "Game Screen", headerShown: false}} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </NumberProvider>
   );
 }
