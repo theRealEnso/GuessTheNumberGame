@@ -7,17 +7,23 @@ type NumberProviderProps = {
 type NumberContextType = {
     number: string;
     setNumber: React.Dispatch<React.SetStateAction<string>>;
+    guessedNumber: number,
+    setGuessedNumber: React.Dispatch<React.SetStateAction<number>>
 };
 
 export const NumberContext = createContext<NumberContextType>({
     // set default values that only serve as placeholders so that code doesn't crash if they are used outside of a provider
     number: "", // default value is an empty string
-    setNumber: () => {} // default value is a function that does nothing
+    setNumber: () => {}, // default value is a function that does nothing
+    guessedNumber: 0,
+    setGuessedNumber: () => {}
 });
 
 export const NumberProvider: FC<NumberProviderProps> = ({children}) => {
     const [number, setNumber] = useState<string>("");
-    const value = {number, setNumber};
+    const [guessedNumber, setGuessedNumber] = useState<number>(0);
+
+    const value = {number, setNumber, guessedNumber, setGuessedNumber};
 
     return <NumberContext.Provider value={value}>{children}</NumberContext.Provider>;
 };

@@ -3,10 +3,13 @@ import { NumberContext } from "../context/numberContext"
 import { StyleSheet, Text, TextInput, Pressable, View } from "react-native";
 import { Link } from "expo-router";
 
+// import components
+import CustomButton from "./customButton";
+
 
 export const NumberInput = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
-    const {number, setNumber} = useContext(NumberContext)
+    const {number, setNumber, setGuessedNumber} = useContext(NumberContext)
 
     const handleInputChange = (userInput: string): void => {
         if(/^\d*$/.test(userInput)){ // test if input is a number
@@ -24,6 +27,11 @@ export const NumberInput = () => {
         setNumber("");
         setErrorMessage("");
     };
+
+    const generateGuessedNumber = () => {
+        const randomNumber = Math.floor(Math.random() * 100);
+        setGuessedNumber(randomNumber);
+    }
 
     return (
         <View style={styles.container}>
@@ -47,17 +55,15 @@ export const NumberInput = () => {
                 }
                 <View style={styles.buttonContainer}>
 
-                    <View style={styles.pressable}>
-                        <Pressable onPress={clearInput}>
+                    <CustomButton onButtonPress={clearInput}>
                         <Text>Reset</Text>
-                        </Pressable>
-                    </View>
+                    </CustomButton>
                 
-                    <View style={styles.pressable}>
-                        <Link href="/game-screen">
+                    <CustomButton>
+                        <Link href="/game-screen" onPress={generateGuessedNumber}>
                             Confirm
                         </Link>
-                    </View>
+                    </CustomButton>
                 </View>
             </View>
         </View>
