@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { NumberContext } from "../context/numberContext"
-import { StyleSheet, Text, TextInput, Pressable, View } from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import { Link } from "expo-router";
 
 // import components
@@ -9,7 +9,7 @@ import CustomButton from "./customButton";
 
 export const NumberInput = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
-    const {number, setNumber, setGuessedNumber} = useContext(NumberContext)
+    const {number, setNumber, setGuessedNumber, setGuessedList, generateGuessedNumber} = useContext(NumberContext)
 
     const handleInputChange = (userInput: string): void => {
         if(/^\d*$/.test(userInput)){ // test if input is a number
@@ -25,13 +25,10 @@ export const NumberInput = () => {
     
     const clearInput = () => {
         setNumber("");
+        setGuessedNumber(0);
+        setGuessedList([]);
         setErrorMessage("");
     };
-
-    const generateGuessedNumber = () => {
-        const randomNumber = Math.floor(Math.random() * 100);
-        setGuessedNumber(randomNumber);
-    }
 
     return (
         <View style={styles.container}>
@@ -134,4 +131,4 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
         color: '#fff',
       },
-})
+});

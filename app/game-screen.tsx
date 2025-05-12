@@ -4,20 +4,45 @@ import { Text, View, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Link } from 'expo-router';
 
+// import components
+import CustomButton from '@/components/customButton';
+import GuessList from '@/components/guessList';
+
 const GameScreen = () => {
   const {number, guessedNumber} = useContext(NumberContext);
 
   return (
     <>
       <StatusBar style='light'></StatusBar>
+      {/* label */}
       <View style={styles.container}>
         <View style={styles.label}>
           <Text style={styles.labelText}>Opponent&apos;s Guess</Text>
         </View>
         
+        {/* number label */}
         <View style={styles.numberDisplay}>
           <Text style={styles.numberText}>{guessedNumber}</Text>
         </View>
+
+        {/* widget container */}
+        <View style={styles.widgetContainer}>
+          <View>
+            <Text style={styles.text}>Higher or Lower?</Text>
+          </View>
+          {/* button container */}
+          <View style={styles.buttonContainer}>
+            <CustomButton>
+              <Text style={styles.buttonText}>-</Text>
+            </CustomButton>
+            <CustomButton>
+              <Text style={styles.buttonText}>+</Text>
+            </CustomButton>
+          </View>
+        </View>
+
+        {/* guess list */}
+        <GuessList></GuessList>
 
         <View style={styles.link}>
           <Link href="/">Back to main screen</Link>
@@ -48,6 +73,11 @@ const styles = StyleSheet.create({
     maxHeight: 50,
   },
 
+  labelText: {
+    color: '#fff',
+    fontSize: 20,
+  },
+
   numberDisplay: {
     flex: 1,
     borderWidth: 2,
@@ -60,14 +90,33 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 
-  labelText: {
-    color: '#fff',
-    fontSize: 20,
-  },
-
   numberText: {
     color: "#e3ae0e",
     fontSize: 24,
+  },
+
+  widgetContainer: {
+    borderWidth: 2,
+    backgroundColor: "black",
+    borderRadius: 6,
+    width: "80%",
+    alignItems: "center",
+    justifyContent: "center",
+    
+  },
+
+  buttonContainer: {
+    flexDirection: "row",
+    paddingBottom: 8,
+  },
+
+  buttonText: {
+    fontSize: 16,
+  },
+
+  text: {
+    color: "#fff",
+    padding: 8,
   },
 
   link: {
