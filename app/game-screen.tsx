@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { NumberContext } from "../context/numberContext"
 import { Text, View, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
@@ -14,18 +14,14 @@ const GameScreen = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const {number, guessedNumber, generateGuessedNumber, minBoundary, maxBoundary, setMinBoundary, setMaxBoundary, setHintMessage, setGuessCount,} = useContext(NumberContext);
 
-  const navigateToGameSummary = () => {
-    router.push("/gameSummary");
-  };
+  // const navigateToGameSummary = () => {
+  //   router.push("/gameSummary");
+  // };
 
   const handleLowerGuess = () => {
     const userNumber = Number(number);
 
-    if(guessedNumber === userNumber){
-      setHintMessage(`Correct!`);
-      // navigate to win screen
-      navigateToGameSummary();
-    } else if (guessedNumber < userNumber){
+    if(guessedNumber < userNumber){
       setHintMessage("guess higher!");
       setShowModal(true);
     } else { // guessedNumber is higher than userNumber... which means we need to update the upper bound and restrict it to the guessedNumber - 1 because number cannot possibly go higher
@@ -39,10 +35,7 @@ const GameScreen = () => {
   const handleHigherGuess = () => {
     const userNumber = Number(number);
 
-    if(guessedNumber === userNumber){
-      setHintMessage(`Correct!`);
-      navigateToGameSummary();
-    } else if(guessedNumber > userNumber){
+    if(guessedNumber > userNumber){
       setHintMessage("guess lower!");
       setShowModal(true)
     } else { // guessedNumber is less than userNumber... which means we need to update the lower bound and restrict it to guessedNumber + 1 because number cannot possibly go lower
@@ -52,6 +45,14 @@ const GameScreen = () => {
       setHintMessage("");
     };
   };
+
+  // navigate user to the game summary screen when the correct number is guessed
+  useEffect(() => {
+    let userNumber = Number(number);
+    if(guessedNumber === userNumber){
+      router.push("/gameSummary");
+    }
+  }, [guessedNumber, number, router])
 
   return (
     <>
