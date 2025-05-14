@@ -12,13 +12,13 @@ import HintModal from '@/components/hintModal';
 const GameScreen = () => {
   const router = useRouter();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const {number, guessedNumber, generateGuessedNumber, setMinBoundary, setMaxBoundary, setHintMessage, setGuessCount,} = useContext(NumberContext);
+  const {number, guessedNumber, generateGuessedNumber, minBoundary, maxBoundary, setMinBoundary, setMaxBoundary, setHintMessage, setGuessCount,} = useContext(NumberContext);
 
   const navigateToGameSummary = () => {
     router.push("/gameSummary");
   };
 
-  const handleLowerGuess = async () => {
+  const handleLowerGuess = () => {
     const userNumber = Number(number);
 
     if(guessedNumber === userNumber){
@@ -29,14 +29,14 @@ const GameScreen = () => {
       setHintMessage("guess higher!");
       setShowModal(true);
     } else { // guessedNumber is higher than userNumber... which means we need to update the upper bound and restrict it to the guessedNumber - 1 because number cannot possibly go higher
-      await setMaxBoundary(guessedNumber - 1);
-      await generateGuessedNumber();
+      setMaxBoundary(guessedNumber - 1);
+      generateGuessedNumber(minBoundary, guessedNumber - 1);
       setGuessCount((previousCount) => previousCount + 1);
       setHintMessage("");
     };
   };
 
-  const handleHigherGuess = async () => {
+  const handleHigherGuess = () => {
     const userNumber = Number(number);
 
     if(guessedNumber === userNumber){
@@ -46,8 +46,8 @@ const GameScreen = () => {
       setHintMessage("guess lower!");
       setShowModal(true)
     } else { // guessedNumber is less than userNumber... which means we need to update the lower bound and restrict it to guessedNumber + 1 because number cannot possibly go lower
-      await setMinBoundary(guessedNumber + 1);
-      await generateGuessedNumber();
+      setMinBoundary(guessedNumber + 1);
+      generateGuessedNumber(guessedNumber + 1, maxBoundary);
       setGuessCount((previousCount) => previousCount + 1);
       setHintMessage("");
     };
@@ -94,6 +94,8 @@ const GameScreen = () => {
     </>
   );
 }
+
+// define styles
 
 const styles = StyleSheet.create({
   container: {

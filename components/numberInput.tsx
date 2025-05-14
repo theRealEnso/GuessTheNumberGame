@@ -1,13 +1,15 @@
 import { useState, useContext } from "react";
 import { NumberContext } from "../context/numberContext"
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 // import components
 import CustomButton from "./customButton";
 
 
 export const NumberInput = () => {
+    const router = useRouter();
+
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const {number, setNumber, reset, generateGuessedNumber} = useContext(NumberContext)
 
@@ -23,10 +25,16 @@ export const NumberInput = () => {
         }
     };
 
+    // function to confirm user inputted number and start the game by navigating to the game screen
+    const handleConfirm = () => {
+        generateGuessedNumber();
+        router.push("/game-screen");
+    }
+
     const clearInputAndReset = () => {
         setErrorMessage("");
         reset();
-    }
+    };
 
     return (
         <View style={styles.container}>
@@ -49,8 +57,8 @@ export const NumberInput = () => {
                     )
                 }
                 <View style={styles.buttonContainer}>
-                    <CustomButton onButtonPress={clearInputAndReset} value="Reset"></CustomButton>
-                    <CustomButton value={<Link href="/game-screen" onPress={generateGuessedNumber}>Confirm</Link>}></CustomButton>
+                    <CustomButton value="Reset"onButtonPress={clearInputAndReset}></CustomButton>
+                    <CustomButton value="Confirm" onButtonPress={handleConfirm}></CustomButton>
                 </View>
             </View>
         </View>

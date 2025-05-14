@@ -53,8 +53,15 @@ export const NumberProvider: FC<NumberProviderProps> = ({children}) => {
     const [hintMessage, setHintMessage] = useState<string>("");
 
     // function to generate a random number, then set state of the guessed number and append it to the guessedList array
-    const generateGuessedNumber = () => {
-        const randomNumber = Math.floor(Math.random() * (maxBoundary - minBoundary + 1) + minBoundary);
+    // update function so that it sets default values as min and max to be minBoundary and maxBoundary, respectively. So, if function is used without any values passed to it, then it will default to using `minBoundary` and `maxBoundary`. However, if values are passed to it, then it will execute with those specific values for that specific function call. This is to get around potential issue of the function using stale / unupdated state values in the game-screen component if setMinBoundary and setMaxBoundary doesn't update the state in time with new values before this function gets executed
+    const generateGuessedNumber = (min = minBoundary, max = maxBoundary) => {
+        let randomNumber: number;
+
+        // modify function to check the random number that is generated against the values already contained in guessedList. Loop will keep running while generated number already exists in guessed lists, and breaks when condition is false
+        do {
+            randomNumber = Math.floor(Math.random() * (max - min + 1) + min);
+        } while (guessedList.includes(randomNumber));
+
         setGuessedNumber(randomNumber);
         setGuessCount((previousCount) => previousCount + 1);
         setGuessedList((previousList) => [...previousList, randomNumber]);
@@ -64,7 +71,7 @@ export const NumberProvider: FC<NumberProviderProps> = ({children}) => {
     const reset = () => {
         setNumber("");
         setMinBoundary(0);
-        setMaxBoundary(0);
+        setMaxBoundary(99);
         setGuessedNumber(0);
         setGuessCount(0);
         setGuessedList([]);
