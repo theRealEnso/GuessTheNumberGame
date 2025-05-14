@@ -1,16 +1,18 @@
-import { View, Pressable, StyleSheet, GestureResponderEvent } from "react-native";
+import { View, Pressable, Text, StyleSheet, GestureResponderEvent } from "react-native";
 import { ReactNode } from "react";
 
 type CustomButtonProps = {
-    children: ReactNode;
     onButtonPress?: (event: GestureResponderEvent) => void; // onButtonPress property is optional -- not every custom button will have this prop
+    value: string | ReactNode;
 }
 
-const CustomButton = ({children, onButtonPress}: CustomButtonProps) => {
+const CustomButton = ({value, onButtonPress}: CustomButtonProps) => {
     return (
         <View style={styles.pressable}>
             <Pressable onPress={onButtonPress}>
-                {children}
+                <View>
+                    <Text>{value}</Text>
+                </View>
             </Pressable>
         </View>
     )

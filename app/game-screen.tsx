@@ -1,15 +1,57 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { NumberContext } from "../context/numberContext"
 import { Text, View, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 
 // import components
 import CustomButton from '@/components/customButton';
 import GuessList from '@/components/guessList';
+import HintModal from '@/components/hintModal';
 
 const GameScreen = () => {
-  const {number, guessedNumber} = useContext(NumberContext);
+  const router = useRouter();
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const {number, guessedNumber, generateGuessedNumber, setMinBoundary, setMaxBoundary, setHintMessage, setGuessCount,} = useContext(NumberContext);
+
+  const navigateToGameSummary = () => {
+    router.push("/gameSummary");
+  };
+
+  const handleLowerGuess = async () => {
+    const userNumber = Number(number);
+
+    if(guessedNumber === userNumber){
+      setHintMessage(`Correct!`);
+      // navigate to win screen
+      navigateToGameSummary();
+    } else if (guessedNumber < userNumber){
+      setHintMessage("guess higher!");
+      setShowModal(true);
+    } else { // guessedNumber is higher than userNumber... which means we need to update the upper bound and restrict it to the guessedNumber - 1 because number cannot possibly go higher
+      await setMaxBoundary(guessedNumber - 1);
+      await generateGuessedNumber();
+      setGuessCount((previousCount) => previousCount + 1);
+      setHintMessage("");
+    };
+  };
+
+  const handleHigherGuess = async () => {
+    const userNumber = Number(number);
+
+    if(guessedNumber === userNumber){
+      setHintMessage(`Correct!`);
+      navigateToGameSummary();
+    } else if(guessedNumber > userNumber){
+      setHintMessage("guess lower!");
+      setShowModal(true)
+    } else { // guessedNumber is less than userNumber... which means we need to update the lower bound and restrict it to guessedNumber + 1 because number cannot possibly go lower
+      await setMinBoundary(guessedNumber + 1);
+      await generateGuessedNumber();
+      setGuessCount((previousCount) => previousCount + 1);
+      setHintMessage("");
+    };
+  };
 
   return (
     <>
@@ -32,12 +74,8 @@ const GameScreen = () => {
           </View>
           {/* button container */}
           <View style={styles.buttonContainer}>
-            <CustomButton>
-              <Text style={styles.buttonText}>-</Text>
-            </CustomButton>
-            <CustomButton>
-              <Text style={styles.buttonText}>+</Text>
-            </CustomButton>
+            <CustomButton value="-" onButtonPress={handleLowerGuess}></CustomButton>
+            <CustomButton value="+" onButtonPress={handleHigherGuess}></CustomButton>
           </View>
         </View>
 
@@ -47,9 +85,13 @@ const GameScreen = () => {
         <View style={styles.link}>
           <Link href="/">Back to main screen</Link>
         </View>
+
+        {/* conditionally render modal */}
+        {
+          showModal && <HintModal setShowModal={setShowModal}></HintModal>
+        }
       </View>
     </>
-
   );
 }
 

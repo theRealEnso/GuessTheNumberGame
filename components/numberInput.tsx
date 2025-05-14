@@ -9,7 +9,7 @@ import CustomButton from "./customButton";
 
 export const NumberInput = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
-    const {number, setNumber, setGuessedNumber, setGuessedList, generateGuessedNumber} = useContext(NumberContext)
+    const {number, setNumber, reset, generateGuessedNumber} = useContext(NumberContext)
 
     const handleInputChange = (userInput: string): void => {
         if(/^\d*$/.test(userInput)){ // test if input is a number
@@ -22,13 +22,11 @@ export const NumberInput = () => {
           setErrorMessage("Please enter a valid number between 0-99");
         }
     };
-    
-    const clearInput = () => {
-        setNumber("");
-        setGuessedNumber(0);
-        setGuessedList([]);
+
+    const clearInputAndReset = () => {
         setErrorMessage("");
-    };
+        reset();
+    }
 
     return (
         <View style={styles.container}>
@@ -51,16 +49,8 @@ export const NumberInput = () => {
                     )
                 }
                 <View style={styles.buttonContainer}>
-
-                    <CustomButton onButtonPress={clearInput}>
-                        <Text>Reset</Text>
-                    </CustomButton>
-                
-                    <CustomButton>
-                        <Link href="/game-screen" onPress={generateGuessedNumber}>
-                            Confirm
-                        </Link>
-                    </CustomButton>
+                    <CustomButton onButtonPress={clearInputAndReset} value="Reset"></CustomButton>
+                    <CustomButton value={<Link href="/game-screen" onPress={generateGuessedNumber}>Confirm</Link>}></CustomButton>
                 </View>
             </View>
         </View>

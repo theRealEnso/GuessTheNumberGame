@@ -9,9 +9,18 @@ type NumberContextType = {
     setNumber: React.Dispatch<React.SetStateAction<string>>;
     guessedNumber: number;
     setGuessedNumber: React.Dispatch<React.SetStateAction<number>>;
-    guessedList: number[],
+    guessCount: number;
+    setGuessCount: React.Dispatch<React.SetStateAction<number>>;
+    guessedList: number[];
     setGuessedList: React.Dispatch<React.SetStateAction<number[]>>
-    generateGuessedNumber: () => void,
+    generateGuessedNumber: () => void;
+    minBoundary: number;
+    setMinBoundary: React.Dispatch<React.SetStateAction<number>>;
+    maxBoundary: number;
+    setMaxBoundary: React.Dispatch<React.SetStateAction<number>>;
+    hintMessage: string;
+    setHintMessage: React.Dispatch<React.SetStateAction<string>>;
+    reset: () => void;
 };
 
 export const NumberContext = createContext<NumberContextType>({
@@ -20,31 +29,66 @@ export const NumberContext = createContext<NumberContextType>({
     setNumber: () => {}, // default value is a function that does nothing
     guessedNumber: 0,
     setGuessedNumber: () => {},
+    guessCount: 0,
+    setGuessCount: () => {},
     guessedList: [],
     setGuessedList: () => {},
-    generateGuessedNumber: () => {}
+    generateGuessedNumber: () => {},
+    minBoundary: 0,
+    setMinBoundary: () => {},
+    maxBoundary: 99,
+    setMaxBoundary: () => {},
+    hintMessage: "",
+    setHintMessage: () => {},
+    reset: () => {},
 });
 
 export const NumberProvider: FC<NumberProviderProps> = ({children}) => {
     const [number, setNumber] = useState<string>("");
+    const [minBoundary, setMinBoundary] = useState<number>(0);
+    const [maxBoundary, setMaxBoundary] = useState<number>(99);
     const [guessedNumber, setGuessedNumber] = useState<number>(0);
+    const [guessCount, setGuessCount] = useState<number>(0);
     const [guessedList, setGuessedList] = useState<number[]>([]);
+    const [hintMessage, setHintMessage] = useState<string>("");
 
     // function to generate a random number, then set state of the guessed number and append it to the guessedList array
     const generateGuessedNumber = () => {
-        const randomNumber = Math.floor(Math.random() * 100);
+        const randomNumber = Math.floor(Math.random() * (maxBoundary - minBoundary + 1) + minBoundary);
         setGuessedNumber(randomNumber);
+        setGuessCount((previousCount) => previousCount + 1);
         setGuessedList((previousList) => [...previousList, randomNumber]);
     };
+
+    // function to reset game and inputs
+    const reset = () => {
+        setNumber("");
+        setMinBoundary(0);
+        setMaxBoundary(0);
+        setGuessedNumber(0);
+        setGuessCount(0);
+        setGuessedList([]);
+        setHintMessage("");
+    };
+    
 
     const value = {
         number, 
         setNumber, 
         guessedNumber, 
-        setGuessedNumber, 
+        setGuessedNumber,
+        guessCount,
+        setGuessCount, 
         guessedList, 
         setGuessedList,
         generateGuessedNumber,
+        minBoundary,
+        setMinBoundary,
+        maxBoundary,
+        setMaxBoundary,
+        hintMessage,
+        setHintMessage,
+        reset,
     };
 
     return <NumberContext.Provider value={value}>{children}</NumberContext.Provider>;

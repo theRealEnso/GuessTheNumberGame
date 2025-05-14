@@ -11,6 +11,7 @@ export default function RootLayout() {
       }}>
         <Stack.Screen name="index" options={{title: "Home", headerShown: false}} />
         <Stack.Screen name="game-screen" options={{title: "Game Screen", headerShown: false}} />
+        <Stack.Screen name="gameSummary" options={{title: "Game Screen", headerShown: false}} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </NumberProvider>
