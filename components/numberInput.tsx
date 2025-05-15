@@ -40,22 +40,29 @@ export const NumberInput = () => {
         <View style={styles.container}>
             <View style={styles.numberContainer}>
                 <Text style={styles.enterNumberText}>Enter a Number</Text>
+
+                {/* text input */}
                 <View style={styles.numberInputContainer}>
                     <TextInput 
                         style={styles.textInput} 
                         value={number} 
                         onChangeText={handleInputChange}
-                        keyboardType='numeric'
-                        maxLength={2}
+                        keyboardType='number-pad' //keyboardType prop tells phone device to show specific keyboard
+                        maxLength={2} // maxLength prop restricts number of characters the TextInput can accept
+                        autoCapitalize="none"
+                        autoCorrect={false}
                     >
                     </TextInput>
                 </View>
 
+                {/* conditionally render error message */}
                 {
                     errorMessage && (
                         <Text style={styles.errorMessageText}>{errorMessage}</Text>
                     )
                 }
+
+                {/* button container */}
                 <View style={styles.buttonContainer}>
                     <CustomButton value="Reset"onButtonPress={clearInputAndReset}></CustomButton>
                     <CustomButton value="Confirm" onButtonPress={handleConfirm}></CustomButton>
@@ -72,11 +79,17 @@ const styles = StyleSheet.create({
     },
 
     numberContainer: {
-        backgroundColor: "black",
+        backgroundColor: "#72063c",
         borderRadius: 12,
         alignItems: "center",
         justifyContent: "center",
         padding: 20,
+        elevation: 4, // android specific for adding box-shadow
+        shadowColor: "black",
+        shadowOffset: {width: 0, height: 2}, // shift shadow downwards by 2 pixels
+        shadowRadius: 6, // controls how much shadow expands
+        shadowOpacity: 1 //control how transparent the shadow is
+        // shadow properties are specific to target iOS devices
     },
     
     numberInputContainer: {
@@ -93,12 +106,14 @@ const styles = StyleSheet.create({
 
     textInput: {
         borderBottomWidth: 2,
-        borderColor: "#fff",
-        color: "#fff",
+        borderColor: "#ddb52f",
+        color: "#ddb52f",
         width: "60%",
         alignItems: "center",
         justifyContent: "center",
         fontSize: 20,
+        fontWeight: "bold",
+        textAlign: "center",
     },
 
     buttonContainer: {

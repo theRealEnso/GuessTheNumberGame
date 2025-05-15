@@ -7,11 +7,15 @@ type CustomButtonProps = {
 }
 
 const CustomButton = ({value, onButtonPress}: CustomButtonProps) => {
+
     return (
-        <View style={styles.pressable}>
-            <Pressable onPress={onButtonPress}>
+        <View style={styles.buttonOuterContainer}>
+            <Pressable 
+                onPress={onButtonPress} 
+                style={({pressed}) => pressed ? [styles.buttonInnerContainer, styles.pressed] : styles.buttonInnerContainer} android_ripple={{color: "#640233"}}
+                >
                 <View>
-                    <Text>{value}</Text>
+                    <Text style={styles.textColor}>{value}</Text>
                 </View>
             </Pressable>
         </View>
@@ -21,16 +25,30 @@ const CustomButton = ({value, onButtonPress}: CustomButtonProps) => {
 export default CustomButton;
 
 const styles = StyleSheet.create({
-    pressable: {
+    // combine outer and inner container to make sure visual ripple effect for button feedback looks as expected
+    buttonOuterContainer: {
+        borderRadius: 20,
         marginTop: 20,
         marginHorizontal: 5,
+        overflow: "hidden", // make sure ripple effect doesn't flow outside of the container
+    },
+
+    buttonInnerContainer: {
         borderWidth: 1,
-        borderRadius: 20,
-        borderColor: "#fcba03",
-        backgroundColor: "#fcba03",
+        borderColor: "#872323",
+        backgroundColor: "#872323",
         padding: 6,
         width: 120,
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        elevation: 2,
+    },
+
+    pressed: {
+        opacity: 0.75,
+    },
+
+    textColor: {
+        color: "#fff",
     },
 });

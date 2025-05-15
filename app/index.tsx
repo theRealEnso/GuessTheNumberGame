@@ -21,7 +21,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
+    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 50,
@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
   },
 
   guessNumberText: {
-    color: '#fff',
+    color: 'black',
     borderStyle: "solid",
-    borderColor: "#fff",
+    borderColor: "black",
     borderWidth: 2,
     padding: 12,
   },
