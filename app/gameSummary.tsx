@@ -23,10 +23,10 @@ const GameSummary = () => {
         setHasReset(true);
     };
 
+    // move navigation logic into useEffect in order to fix issue where calling reset() updated state and caused component to re-render before navigation was being executed, which made the GameSummary re-render with reset values without navigating user back to the main screen. 
     useEffect(() => {
         if(hasReset){
             router.replace("/");
-            setHasReset(false);
         }
     },[hasReset, router]);
 
