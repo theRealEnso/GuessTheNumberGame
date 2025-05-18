@@ -7,6 +7,9 @@ import { useRouter } from "expo-router";
 // import context
 import { NumberContext } from "@/context/numberContext";
 
+// import components
+import CustomButton from "@/components/customButton";
+
 const GameSummary = () => {
     const router = useRouter();
 
@@ -37,12 +40,7 @@ const GameSummary = () => {
             <View style={styles.gameDetails}>
                 <Text style={styles.text}>{`Your phone device needed ${guessCount} rounds`} </Text>
                 <Text style={styles.text}>{`to guess the number ${number}.`}</Text>
-                <View style={styles.pressable}>
-                    <Pressable onPress={resetGame}>
-                        <Text style={styles.text}>Start new game</Text>
-                    </Pressable>
-                </View>
-
+                <CustomButton value="Start new game" onButtonPress={resetGame}></CustomButton>
             </View>
         </LinearGradient>
     )

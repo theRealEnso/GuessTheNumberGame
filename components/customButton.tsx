@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginTop: 20,
         marginHorizontal: 5,
+        // padding: 4,
         overflow: "hidden", // make sure ripple effect doesn't flow outside of the container
     },
 
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#80163c",
         backgroundColor: "#80163c",
-        padding: 6,
+        padding: 8,
         width: 120,
         alignItems: "center",
         justifyContent: "center",
