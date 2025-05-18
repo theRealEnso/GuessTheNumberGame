@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
 
     buttonInnerContainer: {
         borderWidth: 1,
-        borderColor: "#872323",
-        backgroundColor: "#872323",
+        borderColor: "#80163c",
+        backgroundColor: "#80163c",
         padding: 6,
         width: 120,
         alignItems: "center",

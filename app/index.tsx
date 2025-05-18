@@ -1,5 +1,6 @@
-import { Text, View, StyleSheet, } from 'react-native';
+import { Text, View, ImageBackground, StyleSheet, } from 'react-native';
 import { StatusBar } from "expo-status-bar";
+import { LinearGradient } from "expo-linear-gradient";
 
 // import components
 import { NumberInput } from "../components/numberInput";
@@ -8,38 +9,42 @@ export default function Index() {
   return (
     <>
       <StatusBar style="light"></StatusBar>
-      <View style={styles.container}>
-        <View style={styles.guessLabelContainer}>
-          <Text style={styles.guessNumberText}>Guess My Number</Text>
-        </View>
-        <NumberInput></NumberInput>
-      </View>
+      <LinearGradient style={styles.container} colors={["#3b021f", "#ddb52f"]}>
+        <ImageBackground source={require("../assets/images/background.png")} resizeMode="cover" style={styles.container} imageStyle={styles.backgroundImage}>
+          <View style={styles.guessLabelContainer}>
+            <Text style={styles.guessNumberText}>Guess My Number</Text>
+          </View>
+          <NumberInput></NumberInput>
+        </ImageBackground>
+      </LinearGradient>
     </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    flex: 2,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 50,
+    width: "100%",
   },
 
   guessLabelContainer: {
-    flex: 1,
+    flex: 2,
     alignItems: "center",
     justifyContent: "center",
-    // backgroundColor: "red"
   },
 
   guessNumberText: {
-    color: 'black',
+    color: '#fff',
     borderStyle: "solid",
-    borderColor: "black",
+    borderColor: "#fff",
     borderWidth: 2,
     padding: 12,
+  },
+
+  backgroundImage: {
+    opacity: 0.15,
   },
 
 });

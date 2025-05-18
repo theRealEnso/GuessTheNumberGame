@@ -10,8 +10,8 @@ export default function RootLayout() {
         contentStyle: { backgroundColor: "#25292e" },
       }}>
         <Stack.Screen name="index" options={{title: "Home", headerShown: false}} />
-        <Stack.Screen name="game-screen" options={{title: "Game Screen", headerShown: false}} />
-        <Stack.Screen name="gameSummary" options={{title: "Game Screen", headerShown: false}} />
+        <Stack.Screen name="gameScreen" options={{title: "Game Screen", headerShown: false}} />
+        <Stack.Screen name="gameSummary" options={{title: "Game Summary", headerShown: false}} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </NumberProvider>

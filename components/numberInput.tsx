@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     },
 
     numberContainer: {
-        backgroundColor: "#72063c",
+        backgroundColor: "#3b0217",
         borderRadius: 12,
         alignItems: "center",
         justifyContent: "center",
