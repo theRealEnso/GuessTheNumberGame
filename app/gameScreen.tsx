@@ -3,6 +3,7 @@ import { NumberContext } from "../context/numberContext"
 import { Text, View, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Link, useRouter } from 'expo-router';
+import { LinearGradient } from "expo-linear-gradient";
 
 // import components
 import CustomButton from '@/components/customButton';
@@ -58,7 +59,7 @@ const GameScreen = () => {
     <>
       <StatusBar style='light'></StatusBar>
       {/* label */}
-      <View style={styles.container}>
+      <LinearGradient style={styles.container} colors={["#3b021f", "#ddb52f"]}>
         <View style={styles.label}>
           <Text style={styles.labelText}>Opponent&apos;s Guess</Text>
         </View>
@@ -81,7 +82,10 @@ const GameScreen = () => {
         </View>
 
         {/* guess list */}
-        <GuessList></GuessList>
+        <View style={styles.guessListContainer}>
+          <GuessList></GuessList>
+        </View>
+        
 
         <View style={styles.link}>
           <Link href="/">Back to main screen</Link>
@@ -91,7 +95,7 @@ const GameScreen = () => {
         {
           showModal && <HintModal setShowModal={setShowModal}></HintModal>
         }
-      </View>
+      </LinearGradient>
     </>
   );
 }
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "90%",
-    marginTop: 50,
+    marginTop: 80,
     marginBottom: 20,
     maxHeight: 50,
   },
@@ -141,12 +145,12 @@ const styles = StyleSheet.create({
   },
 
   widgetContainer: {
-    borderWidth: 2,
-    backgroundColor: "black",
+    backgroundColor: "#3b0217",
     borderRadius: 6,
     width: "80%",
     alignItems: "center",
     justifyContent: "center",
+    elevation: 4,
     
   },
 
@@ -159,13 +163,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
+  guessListContainer: {
+    flex: 2,
+    width: "80%",
+  },
+
   text: {
     color: "#fff",
     padding: 8,
   },
 
   link: {
-    flex: 6,
+    flex: 1,
   },
 
 });

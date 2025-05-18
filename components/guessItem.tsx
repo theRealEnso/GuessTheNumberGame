@@ -18,14 +18,14 @@ export default GuessItem;
 
 const styles = StyleSheet.create({
     container: {
+        borderWidth: 1,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        borderWidth: 1,
-        borderColor: "black",
         backgroundColor: "#e3ae0e",
         borderRadius: 16,
         paddingHorizontal: 16,
         paddingVertical: 4,
+        marginVertical: 4,
     }
 });
