@@ -2,13 +2,14 @@ import { useContext, useState, useEffect } from 'react';
 import { NumberContext } from "../context/numberContext"
 import { Text, View, SafeAreaView, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { Link, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { LinearGradient } from "expo-linear-gradient";
 
 // import components
 import CustomButton from '@/components/customButton';
 import GuessList from '@/components/guessList';
 import HintModal from '@/components/hintModal';
+import Title from '@/components/title';
 
 const GameScreen = () => {
   const router = useRouter();
@@ -62,19 +63,16 @@ const GameScreen = () => {
   useEffect(() => {
     let userNumber = Number(number);
     if(guessedNumber === userNumber){
-      router.push("/gameSummary");
+      router.replace("/gameSummary");
     }
   }, [guessedNumber, number, router])
 
   return (
     <>
       <StatusBar style='light'></StatusBar>
-      {/* label */}
       <LinearGradient style={styles.container} colors={["#3b021f", "#ddb52f"]}>
         <SafeAreaView style={styles.container}>
-          <View style={styles.label}>
-            <Text style={styles.labelText}>Opponent&apos;s Guess</Text>
-          </View>
+          <Title value="Opponent's Guess"></Title>
           
           {/* number label */}
           <View style={styles.numberDisplay}>
@@ -97,11 +95,6 @@ const GameScreen = () => {
           <View style={styles.guessListContainer}>
             <GuessList></GuessList>
           </View>
-          
-
-          <View style={styles.link}>
-            <Link href="/">Back to main screen</Link>
-          </View>
 
           {/* conditionally render modal */}
           {
@@ -121,18 +114,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: "100%",
-  },
-
-  label: {
-    flex: 1,
-    borderWidth: 2,
-    borderColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "90%",
-    marginTop: 80,
-    marginBottom: 20,
-    maxHeight: 50,
   },
 
   labelText: {
@@ -177,7 +158,7 @@ const styles = StyleSheet.create({
   },
 
   guessListContainer: {
-    flex: 2,
+    flex: 3,
     width: "80%",
   },
 

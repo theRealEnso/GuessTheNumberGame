@@ -31,14 +31,15 @@ export const NumberInput = () => {
 
     // function to start the game by navigating to the game screen
     const handleConfirm = () => {
-        if(!number){
+        let userNumber = Number(number);
+        if(!userNumber){
             setErrorMessage("Cannot start game with an empty input!")
             setTimeout(() => {
                 setErrorMessage("");
             }, 3000)
         } else {
             generateGuessedNumber();
-            router.push("/gameScreen");
+            router.replace("/gameScreen");
         };
     };
 

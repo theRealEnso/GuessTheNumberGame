@@ -4,6 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 
 // import components
 import { NumberInput } from "../components/numberInput";
+import Title from '@/components/title';
 
 export default function Index() {
   return (
@@ -12,10 +13,10 @@ export default function Index() {
       <LinearGradient style={styles.container} colors={["#3b021f", "#ddb52f"]}>
         <ImageBackground source={require("../assets/images/background.png")} resizeMode="cover" style={styles.container} imageStyle={styles.backgroundImage}>
           <SafeAreaView>
-            <View style={styles.guessLabelContainer}>
-              <Text style={styles.guessNumberText}>Guess My Number</Text>
+            <View style={styles.innerContainer}>
+              <Title value="Guess My Number"></Title>
+              <NumberInput></NumberInput>
             </View>
-            <NumberInput></NumberInput>
           </SafeAreaView>
         </ImageBackground>
       </LinearGradient>
@@ -25,24 +26,14 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     width: "100%",
   },
 
-  guessLabelContainer: {
-    flex: 2,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  guessNumberText: {
-    color: '#fff',
-    borderStyle: "solid",
-    borderColor: "#fff",
-    borderWidth: 2,
-    padding: 12,
+  innerContainer: {
+    marginTop: 80,
   },
 
   backgroundImage: {
