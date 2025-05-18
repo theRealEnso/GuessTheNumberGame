@@ -22,14 +22,24 @@ export const NumberInput = () => {
         } else {
           setNumber("");
           setErrorMessage("Please enter a valid number between 0-99");
+          setTimeout(() => {
+            setErrorMessage("");
+          }, 3000);
         }
     };
 
-    // function to confirm user inputted number and start the game by navigating to the game screen
+    // function to validate user inputted number and start the game by navigating to the game screen
     const handleConfirm = () => {
-        generateGuessedNumber();
-        router.push("/game-screen");
-    }
+        if(!number){
+            setErrorMessage("Cannot start game with an empty input!")
+            setTimeout(() => {
+                setErrorMessage("");
+            }, 3000)
+        } else {
+            generateGuessedNumber();
+            router.push("/gameScreen");
+        };
+    };
 
     const clearInputAndReset = () => {
         setErrorMessage("");
