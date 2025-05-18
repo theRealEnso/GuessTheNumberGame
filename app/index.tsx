@@ -1,4 +1,4 @@
-import { Text, View, ImageBackground, StyleSheet, } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground, SafeAreaView } from 'react-native';
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
 
@@ -11,10 +11,12 @@ export default function Index() {
       <StatusBar style="light"></StatusBar>
       <LinearGradient style={styles.container} colors={["#3b021f", "#ddb52f"]}>
         <ImageBackground source={require("../assets/images/background.png")} resizeMode="cover" style={styles.container} imageStyle={styles.backgroundImage}>
-          <View style={styles.guessLabelContainer}>
-            <Text style={styles.guessNumberText}>Guess My Number</Text>
-          </View>
-          <NumberInput></NumberInput>
+          <SafeAreaView>
+            <View style={styles.guessLabelContainer}>
+              <Text style={styles.guessNumberText}>Guess My Number</Text>
+            </View>
+            <NumberInput></NumberInput>
+          </SafeAreaView>
         </ImageBackground>
       </LinearGradient>
     </>

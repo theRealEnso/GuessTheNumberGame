@@ -13,6 +13,7 @@ export const NumberInput = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const {number, setNumber, reset, generateGuessedNumber} = useContext(NumberContext)
 
+    //function to validate user input and ensure that input is number between 0 and 99
     const handleInputChange = (userInput: string): void => {
         if(/^\d*$/.test(userInput)){ // test if input is a number
           if(userInput === "" || (parseInt(userInput, 10) >= 0 && parseInt(userInput, 10) <=99)){
@@ -28,7 +29,7 @@ export const NumberInput = () => {
         }
     };
 
-    // function to validate user inputted number and start the game by navigating to the game screen
+    // function to start the game by navigating to the game screen
     const handleConfirm = () => {
         if(!number){
             setErrorMessage("Cannot start game with an empty input!")

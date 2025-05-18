@@ -5,7 +5,7 @@ type NumberProviderProps = {
 };
 
 type NumberContextType = {
-    number: string;
+    number: string | null;
     setNumber: React.Dispatch<React.SetStateAction<string>>;
     guessedNumber: number;
     setGuessedNumber: React.Dispatch<React.SetStateAction<number>>;
@@ -25,7 +25,7 @@ type NumberContextType = {
 
 export const NumberContext = createContext<NumberContextType>({
     // set default values that only serve as placeholders so that code doesn't crash if they are used outside of a provider
-    number: "", // default value is an empty string
+    number: null, // default value is an empty string
     setNumber: () => {}, // default value is a function that does nothing
     guessedNumber: 0,
     setGuessedNumber: () => {},
@@ -44,7 +44,7 @@ export const NumberContext = createContext<NumberContextType>({
 });
 
 export const NumberProvider: FC<NumberProviderProps> = ({children}) => {
-    const [number, setNumber] = useState<string>("");
+    const [number, setNumber] = useState<string | null>(null);
     const [minBoundary, setMinBoundary] = useState<number>(0);
     const [maxBoundary, setMaxBoundary] = useState<number>(99);
     const [guessedNumber, setGuessedNumber] = useState<number>(0);
@@ -69,7 +69,7 @@ export const NumberProvider: FC<NumberProviderProps> = ({children}) => {
 
     // function to reset game and inputs
     const reset = () => {
-        setNumber("");
+        setNumber(null);
         setMinBoundary(0);
         setMaxBoundary(99);
         setGuessedNumber(0);
@@ -77,7 +77,6 @@ export const NumberProvider: FC<NumberProviderProps> = ({children}) => {
         setGuessedList([]);
         setHintMessage("");
     };
-    
 
     const value = {
         number, 

@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { NumberContext } from "../context/numberContext"
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { Link, useRouter } from 'expo-router';
 import { LinearGradient } from "expo-linear-gradient";
@@ -60,41 +60,43 @@ const GameScreen = () => {
       <StatusBar style='light'></StatusBar>
       {/* label */}
       <LinearGradient style={styles.container} colors={["#3b021f", "#ddb52f"]}>
-        <View style={styles.label}>
-          <Text style={styles.labelText}>Opponent&apos;s Guess</Text>
-        </View>
-        
-        {/* number label */}
-        <View style={styles.numberDisplay}>
-          <Text style={styles.numberText}>{guessedNumber}</Text>
-        </View>
-
-        {/* widget container */}
-        <View style={styles.widgetContainer}>
-          <View>
-            <Text style={styles.text}>Higher or Lower?</Text>
+        <SafeAreaView>
+          <View style={styles.label}>
+            <Text style={styles.labelText}>Opponent&apos;s Guess</Text>
           </View>
-          {/* button container */}
-          <View style={styles.buttonContainer}>
-            <CustomButton value="-" onButtonPress={handleLowerGuess}></CustomButton>
-            <CustomButton value="+" onButtonPress={handleHigherGuess}></CustomButton>
+          
+          {/* number label */}
+          <View style={styles.numberDisplay}>
+            <Text style={styles.numberText}>{guessedNumber}</Text>
           </View>
-        </View>
 
-        {/* guess list */}
-        <View style={styles.guessListContainer}>
-          <GuessList></GuessList>
-        </View>
-        
+          {/* widget container */}
+          <View style={styles.widgetContainer}>
+            <View>
+              <Text style={styles.text}>Higher or Lower?</Text>
+            </View>
+            {/* button container */}
+            <View style={styles.buttonContainer}>
+              <CustomButton value="-" onButtonPress={handleLowerGuess}></CustomButton>
+              <CustomButton value="+" onButtonPress={handleHigherGuess}></CustomButton>
+            </View>
+          </View>
 
-        <View style={styles.link}>
-          <Link href="/">Back to main screen</Link>
-        </View>
+          {/* guess list */}
+          <View style={styles.guessListContainer}>
+            <GuessList></GuessList>
+          </View>
+          
 
-        {/* conditionally render modal */}
-        {
-          showModal && <HintModal setShowModal={setShowModal}></HintModal>
-        }
+          <View style={styles.link}>
+            <Link href="/">Back to main screen</Link>
+          </View>
+
+          {/* conditionally render modal */}
+          {
+            showModal && <HintModal setShowModal={setShowModal}></HintModal>
+          }
+        </SafeAreaView>
       </LinearGradient>
     </>
   );
