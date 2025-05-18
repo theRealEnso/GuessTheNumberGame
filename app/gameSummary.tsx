@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { StyleSheet, View, Text, Pressable, Image } from "react-native";
+import { useContext, useState, useEffect } from "react";
+import { StyleSheet, View, Text, Image } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { useRouter } from "expo-router";
@@ -13,13 +13,22 @@ import CustomButton from "@/components/customButton";
 const GameSummary = () => {
     const router = useRouter();
 
+    const [hasReset, setHasReset] = useState<boolean>(false);
+
     const { reset, guessCount, number } = useContext(NumberContext);
 
     // function to reset game
     const resetGame = () => {
         reset();
-        router.push("/");
+        setHasReset(true);
     };
+
+    useEffect(() => {
+        if(hasReset){
+            router.replace("/");
+            setHasReset(false);
+        }
+    },[hasReset, router]);
 
     return (
         <LinearGradient style={styles.container} colors={["#3b021f", "#ddb52f"]}>
