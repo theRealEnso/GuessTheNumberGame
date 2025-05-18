@@ -5,10 +5,10 @@ type NumberProviderProps = {
 };
 
 type NumberContextType = {
-    number: string | null;
+    number: string;
     setNumber: React.Dispatch<React.SetStateAction<string>>;
-    guessedNumber: number;
-    setGuessedNumber: React.Dispatch<React.SetStateAction<number>>;
+    guessedNumber: number | null;
+    setGuessedNumber: React.Dispatch<React.SetStateAction<number | null>>;
     guessCount: number;
     setGuessCount: React.Dispatch<React.SetStateAction<number>>;
     guessedList: number[];
@@ -25,9 +25,9 @@ type NumberContextType = {
 
 export const NumberContext = createContext<NumberContextType>({
     // set default values that only serve as placeholders so that code doesn't crash if they are used outside of a provider
-    number: null, // default value is an empty string
+    number: "", // default value is an empty string
     setNumber: () => {}, // default value is a function that does nothing
-    guessedNumber: 0,
+    guessedNumber: null,
     setGuessedNumber: () => {},
     guessCount: 0,
     setGuessCount: () => {},
@@ -44,10 +44,10 @@ export const NumberContext = createContext<NumberContextType>({
 });
 
 export const NumberProvider: FC<NumberProviderProps> = ({children}) => {
-    const [number, setNumber] = useState<string | null>(null);
+    const [number, setNumber] = useState<string>("");
     const [minBoundary, setMinBoundary] = useState<number>(0);
     const [maxBoundary, setMaxBoundary] = useState<number>(99);
-    const [guessedNumber, setGuessedNumber] = useState<number>(0);
+    const [guessedNumber, setGuessedNumber] = useState<number | null>(null);
     const [guessCount, setGuessCount] = useState<number>(0);
     const [guessedList, setGuessedList] = useState<number[]>([]);
     const [hintMessage, setHintMessage] = useState<string>("");
@@ -69,10 +69,10 @@ export const NumberProvider: FC<NumberProviderProps> = ({children}) => {
 
     // function to reset game and inputs
     const reset = () => {
-        setNumber(null);
+        setNumber("");
         setMinBoundary(0);
         setMaxBoundary(99);
-        setGuessedNumber(0);
+        setGuessedNumber(null);
         setGuessCount(0);
         setGuessedList([]);
         setHintMessage("");

@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { NumberContext } from "../context/numberContext"
 import { StyleSheet, Text, TextInput, View } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 
 // import components
 import CustomButton from "./customButton";
@@ -11,7 +11,7 @@ export const NumberInput = () => {
     const router = useRouter();
 
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
-    const {number, setNumber, reset, generateGuessedNumber} = useContext(NumberContext)
+    const {number, setNumber, reset, generateGuessedNumber} = useContext(NumberContext);
 
     //function to validate user input and ensure that input is number between 0 and 99
     const handleInputChange = (userInput: string): void => {
@@ -42,6 +42,7 @@ export const NumberInput = () => {
         };
     };
 
+    //function to clear the input and all state variables back to default values
     const clearInputAndReset = () => {
         setErrorMessage("");
         reset();

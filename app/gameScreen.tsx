@@ -13,37 +13,48 @@ import HintModal from '@/components/hintModal';
 const GameScreen = () => {
   const router = useRouter();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const {number, guessedNumber, generateGuessedNumber, minBoundary, maxBoundary, setMinBoundary, setMaxBoundary, setHintMessage, setGuessCount,} = useContext(NumberContext);
 
-  // const navigateToGameSummary = () => {
-  //   router.push("/gameSummary");
-  // };
+  const {
+    number, 
+    guessedNumber, 
+    generateGuessedNumber, 
+    minBoundary, 
+    maxBoundary, 
+    setMinBoundary, 
+    setMaxBoundary, 
+    setHintMessage, 
+    setGuessCount,
+  } = useContext(NumberContext);
 
   const handleLowerGuess = () => {
     const userNumber = Number(number);
 
-    if(guessedNumber < userNumber){
+    if(guessedNumber !== null && guessedNumber < userNumber){
       setHintMessage("guess higher!");
       setShowModal(true);
     } else { // guessedNumber is higher than userNumber... which means we need to update the upper bound and restrict it to the guessedNumber - 1 because number cannot possibly go higher
-      setMaxBoundary(guessedNumber - 1);
-      generateGuessedNumber(minBoundary, guessedNumber - 1);
-      setGuessCount((previousCount) => previousCount + 1);
-      setHintMessage("");
+      if(guessedNumber !== null){
+        setMaxBoundary(guessedNumber - 1);
+        generateGuessedNumber(minBoundary, guessedNumber - 1);
+        setGuessCount((previousCount) => previousCount + 1);
+        setHintMessage("");
+      }
     };
   };
 
   const handleHigherGuess = () => {
     const userNumber = Number(number);
 
-    if(guessedNumber > userNumber){
+    if(guessedNumber !== null && guessedNumber > userNumber){
       setHintMessage("guess lower!");
       setShowModal(true)
     } else { // guessedNumber is less than userNumber... which means we need to update the lower bound and restrict it to guessedNumber + 1 because number cannot possibly go lower
-      setMinBoundary(guessedNumber + 1);
-      generateGuessedNumber(guessedNumber + 1, maxBoundary);
-      setGuessCount((previousCount) => previousCount + 1);
-      setHintMessage("");
+      if(guessedNumber !== null){
+        setMinBoundary(guessedNumber + 1);
+        generateGuessedNumber(guessedNumber + 1, maxBoundary);
+        setGuessCount((previousCount) => previousCount + 1);
+        setHintMessage("");
+      }
     };
   };
 
@@ -60,7 +71,7 @@ const GameScreen = () => {
       <StatusBar style='light'></StatusBar>
       {/* label */}
       <LinearGradient style={styles.container} colors={["#3b021f", "#ddb52f"]}>
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
           <View style={styles.label}>
             <Text style={styles.labelText}>Opponent&apos;s Guess</Text>
           </View>
@@ -107,9 +118,9 @@ const GameScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#25292e',
     justifyContent: 'center',
     alignItems: 'center',
+    width: "100%",
   },
 
   label: {
