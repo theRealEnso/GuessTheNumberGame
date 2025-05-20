@@ -5,6 +5,9 @@ import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from "expo-linear-gradient";
 
+// import icons from expo
+import Ionicons from "@expo/vector-icons/Ionicons";
+
 // import components
 import CustomButton from '@/components/customButton';
 import GuessList from '@/components/guessList';
@@ -89,8 +92,8 @@ const GameScreen = () => {
             </View>
             {/* button container */}
             <View style={styles.buttonContainer}>
-              <CustomButton value="-" onButtonPress={handleLowerGuess}></CustomButton>
-              <CustomButton value="+" onButtonPress={handleHigherGuess}></CustomButton>
+              <CustomButton value={<Ionicons name="remove" size={24} color="#fff"></Ionicons>} onButtonPress={handleLowerGuess}></CustomButton>
+              <CustomButton value={<Ionicons name="add" size={24} color="#fff"></Ionicons>} onButtonPress={handleHigherGuess}></CustomButton>
             </View>
           </View>
 
