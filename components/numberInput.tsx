@@ -6,6 +6,9 @@ import { useRouter } from "expo-router";
 // import components
 import CustomButton from "./customButton";
 
+// import colors
+import colors from "@/constants/colors";
+
 
 export const NumberInput = () => {
     const router = useRouter();
@@ -92,7 +95,7 @@ const styles = StyleSheet.create({
     },
 
     numberContainer: {
-        backgroundColor: "#3b0217",
+        backgroundColor: colors.primary600,
         borderRadius: 12,
         alignItems: "center",
         justifyContent: "center",
@@ -119,8 +122,8 @@ const styles = StyleSheet.create({
 
     textInput: {
         borderBottomWidth: 2,
-        borderColor: "#ddb52f",
-        color: "#ddb52f",
+        borderColor: colors.secondary500,
+        color: colors.secondary500,
         width: "60%",
         alignItems: "center",
         justifyContent: "center",
@@ -132,19 +135,6 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: "row",
         justifyContent: "space-between",
-    },
-    
-    pressable: {
-        marginTop: 20,
-        marginHorizontal: 5,
-        borderWidth: 1,
-        borderRadius: 20,
-        borderColor: "#fcba03",
-        backgroundColor: "#fcba03",
-        padding: 6,
-        width: "30%",
-        alignItems: "center",
-        justifyContent: "center"
     },
 
     errorMessageText: {

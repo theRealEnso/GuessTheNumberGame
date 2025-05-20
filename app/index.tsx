@@ -6,11 +6,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import { NumberInput } from "../components/numberInput";
 import Title from '@/components/title';
 
+// import colors
+import colors from '@/constants/colors';
+
 export default function Index() {
   return (
     <>
       <StatusBar style="light"></StatusBar>
-      <LinearGradient style={styles.container} colors={["#3b021f", "#ddb52f"]}>
+      <LinearGradient style={styles.container} colors={[colors.primary500, colors.secondary500]}>
         <ImageBackground source={require("../assets/images/background.png")} resizeMode="cover" style={styles.container} imageStyle={styles.backgroundImage}>
           <SafeAreaView>
             <View style={styles.innerContainer}>

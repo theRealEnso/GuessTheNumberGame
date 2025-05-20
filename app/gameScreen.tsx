@@ -11,6 +11,9 @@ import GuessList from '@/components/guessList';
 import HintModal from '@/components/hintModal';
 import Title from '@/components/title';
 
+// import colors
+import colors from '@/constants/colors';
+
 const GameScreen = () => {
   const router = useRouter();
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -70,7 +73,7 @@ const GameScreen = () => {
   return (
     <>
       <StatusBar style='light'></StatusBar>
-      <LinearGradient style={styles.container} colors={["#3b021f", "#ddb52f"]}>
+      <LinearGradient style={styles.container} colors={[colors.primary500, colors.secondary500]}>
         <SafeAreaView style={styles.container}>
           <Title value="Opponent's Guess"></Title>
           
@@ -125,7 +128,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 2,
     borderRadius: 8,
-    borderColor: "#e3ae0e",
+    borderColor: colors.secondary600,
     width: "80%",
     alignItems: "center",
     justifyContent: "center",
@@ -134,12 +137,12 @@ const styles = StyleSheet.create({
   },
 
   numberText: {
-    color: "#e3ae0e",
+    color: colors.secondary600,
     fontSize: 24,
   },
 
   widgetContainer: {
-    backgroundColor: "#3b0217",
+    backgroundColor: colors.primary600,
     borderRadius: 6,
     width: "80%",
     alignItems: "center",

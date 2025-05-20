@@ -10,6 +10,9 @@ import { NumberContext } from "@/context/numberContext";
 // import components
 import CustomButton from "@/components/customButton";
 
+// import colors
+import colors from "@/constants/colors";
+
 const GameSummary = () => {
     const router = useRouter();
 
@@ -31,7 +34,7 @@ const GameSummary = () => {
     },[hasReset, router]);
 
     return (
-        <LinearGradient style={styles.container} colors={["#3b021f", "#ddb52f"]}>
+        <LinearGradient style={styles.container} colors={[colors.primary500, colors.secondary500]}>
             <View style={styles.labelContainer}>
                 <Text style={styles.gameOverText}>GAME OVER!</Text>
             </View>

@@ -1,10 +1,12 @@
 import { View, Pressable, Text, StyleSheet, GestureResponderEvent } from "react-native";
 import { ReactNode } from "react";
 
+import colors from "@/constants/colors";
+
 type CustomButtonProps = {
     onButtonPress?: (event: GestureResponderEvent) => void; // onButtonPress property is optional -- not every custom button will have this prop
     value: string | ReactNode;
-}
+};
 
 const CustomButton = ({value, onButtonPress}: CustomButtonProps) => {
 
@@ -12,7 +14,7 @@ const CustomButton = ({value, onButtonPress}: CustomButtonProps) => {
         <View style={styles.buttonOuterContainer}>
             <Pressable 
                 onPress={onButtonPress} 
-                style={({pressed}) => pressed ? [styles.buttonInnerContainer, styles.pressed] : styles.buttonInnerContainer} android_ripple={{color: "#640233"}}
+                style={({pressed}) => pressed ? [styles.buttonInnerContainer, styles.pressed] : styles.buttonInnerContainer} android_ripple={{color: colors.primary700}}
                 >
                 <View>
                     <Text style={styles.textColor}>{value}</Text>
