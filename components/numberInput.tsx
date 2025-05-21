@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
     enterNumberText: {
         color: "#fff",
         fontSize: 22,
+        fontFamily: "open-sans",
     },
 
     textInput: {

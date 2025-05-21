@@ -50,8 +50,8 @@ const GameSummary = () => {
 
             {/* game details */}
             <View style={styles.gameDetails}>
-                <Text style={styles.text}>{`Your phone device needed ${guessCount} rounds`} </Text>
-                <Text style={styles.text}>{`to guess the number ${number}.`}</Text>
+                <Text style={styles.text}>Your phone device needed <Text style={styles.textHighlight}>{guessCount}</Text> rounds </Text>
+                <Text style={styles.text}>to guess the number <Text style={styles.textHighlight}>{number}.</Text></Text>
                 <CustomButton value="Start new game" onButtonPress={resetGame}></CustomButton>
             </View>
         </LinearGradient>
@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
     gameOverText: {
         color: "#fff",
         fontSize: 24,
+        fontFamily: "open-sans-bold",
     },
 
     text: {
@@ -117,6 +118,10 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         paddingHorizontal: 16,
         paddingVertical: 8,
+    },
+
+    textHighlight: {
+        color: colors.primary800,
     }
 });
 

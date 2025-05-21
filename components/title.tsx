@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 24,
         fontSize: 24,
+        fontFamily: "open-sans",
       },    
 })
 
