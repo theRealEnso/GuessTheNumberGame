@@ -17,7 +17,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        width: "100%",
+        maxWidth: "80%",
+        width: 500,
+        // marginVertical: 20,
+        // padding: 10,
+
     },
     text: {
         color: '#fff',

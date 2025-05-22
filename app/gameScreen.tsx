@@ -122,11 +122,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 
-  labelText: {
-    color: '#fff',
-    fontSize: 20,
-  },
-
   numberDisplay: {
     flex: 1,
     borderWidth: 2,

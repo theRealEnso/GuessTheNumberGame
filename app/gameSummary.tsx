@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { useRouter } from "expo-router";
@@ -60,6 +60,8 @@ const GameSummary = () => {
 
 export default GameSummary;
 
+const deviceWidth = Dimensions.get("window").width;
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -80,10 +82,10 @@ const styles = StyleSheet.create({
     imageContainer: {
         justifyContent: "center",
         alignItems: "center",
-        width: 300,
-        height: 300,
+        width: deviceWidth < 380 ? 150 : 300,
+        height: deviceWidth < 380 ? 150 : 300,
         borderWidth: 2,
-        borderRadius: 150,
+        borderRadius: deviceWidth < 380 ? 75 : 150,
         borderColor: "black",
         overflow: "hidden",
     },

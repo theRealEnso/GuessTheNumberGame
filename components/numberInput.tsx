@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { NumberContext } from "../context/numberContext"
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, View, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
 
 // import components
@@ -11,6 +11,9 @@ import colors from "@/constants/colors";
 
 
 export const NumberInput = () => {
+    const {width, height} = useWindowDimensions();
+    const isPortrait = height >= width;
+
     const router = useRouter();
 
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -53,7 +56,7 @@ export const NumberInput = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, {flex: isPortrait ? 4 : 2, marginTop: isPortrait ? 40 : 30}]}>
             <View style={styles.numberContainer}>
                 <Text style={styles.enterNumberText}>Enter a Number</Text>
 
@@ -90,7 +93,7 @@ export const NumberInput = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 6,
+        // flex: 4,
         alignItems: "center",
     },
 
@@ -113,6 +116,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         width: 50,
         marginBottom: 10,
+        marginTop: 10,
     },
 
     enterNumberText: {
