@@ -112,7 +112,7 @@ const GameScreen = () => {
           </View>
 
           {/* guess list */}
-          <ScrollView ref={scrollViewRef} style={[styles.guessListContainer, {marginTop: isPortrait ? 20 : 0, flex: isPortrait ? 3 : 1}]} alwaysBounceVertical={true} bounces={true}>
+          <ScrollView ref={scrollViewRef} style={[styles.guessListContainer, {marginTop: isPortrait ? 20 : 10, flex: isPortrait ? 3 : 1}]} alwaysBounceVertical={true} bounces={true}>
             <View>
               <GuessList></GuessList>
             </View>

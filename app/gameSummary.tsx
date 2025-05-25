@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { StyleSheet, View, Text, Image, Dimensions } from "react-native";
+import { StyleSheet, View, Text, Image, useWindowDimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { useRouter } from "expo-router";
@@ -14,6 +14,9 @@ import CustomButton from "@/components/customButton";
 import colors from "@/constants/colors";
 
 const GameSummary = () => {
+    const {width, height} = useWindowDimensions();
+    const isPortrait = height >= width;
+
     const router = useRouter();
 
     const [hasReset, setHasReset] = useState<boolean>(false);
@@ -34,22 +37,31 @@ const GameSummary = () => {
     },[hasReset, router]);
 
     return (
-        <LinearGradient style={styles.container} colors={[colors.primary500, colors.secondary500]}>
-            <View style={styles.labelContainer}>
+        <LinearGradient style={[styles.container]} colors={[colors.primary500, colors.secondary500]}>
+            <View style={[styles.titleContainer, {marginTop: isPortrait ? 40 : 40, marginBottom: isPortrait ? 40 : 20}]}>
                 <Text style={styles.gameOverText}>GAME OVER!</Text>
             </View>
 
             {/* image */}
-            <View style={styles.imageContainer}>
+            <View 
+                style={[
+                    styles.imageContainer, 
+                    {
+                        width: isPortrait ? 300 : 150, 
+                        height: isPortrait ? 300 : 150, 
+                        borderRadius: isPortrait ? 150 : 75,
+                    }
+                ]}
+            >
                 <Image 
                     source={require("../assets/images/success.png")}
-                    style={styles.image}
+                    style={[styles.image, {width: isPortrait ? 300 : 150, height: isPortrait ? 300 : 150}]}
                 >
                 </Image>
             </View>
 
             {/* game details */}
-            <View style={styles.gameDetails}>
+            <View style={[styles.gameDetails, {marginTop: isPortrait ? 40 : 20, marginBottom: isPortrait ? 40 : 20}]}>
                 <Text style={styles.text}>Your phone device needed <Text style={styles.textHighlight}>{guessCount}</Text> rounds </Text>
                 <Text style={styles.text}>to guess the number <Text style={styles.textHighlight}>{number}.</Text></Text>
                 <CustomButton value="Start new game" onButtonPress={resetGame}></CustomButton>
@@ -60,8 +72,6 @@ const GameSummary = () => {
 
 export default GameSummary;
 
-const deviceWidth = Dimensions.get("window").width;
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -69,12 +79,12 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
 
-    labelContainer: {
+    titleContainer: {
         borderColor: "#fff",
         borderWidth: 2,
         paddingHorizontal: 16,
         paddingVertical: 4,
-        marginVertical: 50,
+        // marginVertical: 50,
         alignItems: "center",
         justifyContent: "center",
     },
@@ -82,25 +92,24 @@ const styles = StyleSheet.create({
     imageContainer: {
         justifyContent: "center",
         alignItems: "center",
-        width: deviceWidth < 380 ? 150 : 300,
-        height: deviceWidth < 380 ? 150 : 300,
         borderWidth: 2,
-        borderRadius: deviceWidth < 380 ? 75 : 150,
         borderColor: "black",
         overflow: "hidden",
+        objectFit: "cover",
     },
 
     image: {
-        height: 300,
-        width: 300,
+        // height: 300,
+        // width: 300,
         resizeMode: "cover",
+        objectFit: "cover"
     },
 
     gameDetails: {
         alignItems: "center",
         justifyContent: "center",
         maxWidth: "80%",
-        marginVertical: 50,
+        // marginVertical: 50,
     },
 
     gameOverText: {
