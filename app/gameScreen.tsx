@@ -65,7 +65,6 @@ const GameScreen = () => {
       if(guessedNumber !== null){
         setMaxBoundary(guessedNumber - 1);
         generateGuessedNumber(minBoundary, guessedNumber - 1);
-        setGuessCount((previousCount) => previousCount + 1);
         setHintMessage("");
       }
     };
@@ -81,7 +80,6 @@ const GameScreen = () => {
       if(guessedNumber !== null){
         setMinBoundary(guessedNumber + 1);
         generateGuessedNumber(guessedNumber + 1, maxBoundary);
-        setGuessCount((previousCount) => previousCount + 1);
         setHintMessage("");
       }
     };
