@@ -1,6 +1,7 @@
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef, } from 'react';
 import { NumberContext } from "../context/numberContext"
-import { Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet, useWindowDimensions, ScrollView } from 'react-native';
+import type {ScrollView as ScrollViewInstance} from "react-native";
 import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
 import { LinearGradient } from "expo-linear-gradient";
@@ -18,6 +19,11 @@ import Title from '@/components/title';
 import colors from '@/constants/colors';
 
 const GameScreen = () => {
+  const {width, height} = useWindowDimensions();
+  const isPortrait = height >= width;
+
+  const scrollViewRef = useRef<ScrollViewInstance>(null);
+
   const router = useRouter();
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -25,6 +31,7 @@ const GameScreen = () => {
     number, 
     guessedNumber, 
     generateGuessedNumber, 
+    guessedList,
     minBoundary, 
     maxBoundary, 
     setMinBoundary, 
@@ -32,6 +39,21 @@ const GameScreen = () => {
     setHintMessage, 
     setGuessCount,
   } = useContext(NumberContext);
+
+  // navigate user to the game summary screen when the correct number is guessed
+  useEffect(() => {
+    let userNumber = Number(number);
+    if(guessedNumber === userNumber){
+      router.replace("/gameSummary");
+    }
+  }, [guessedNumber, number, router]);
+
+  // always scroll to bottom of scrollview to display the latest guessed number
+  useEffect(() => {
+    if(scrollViewRef.current){
+      scrollViewRef.current.scrollToEnd({animated: true})
+    }
+  }, [guessedList])
 
   const handleLowerGuess = () => {
     const userNumber = Number(number);
@@ -65,23 +87,15 @@ const GameScreen = () => {
     };
   };
 
-  // navigate user to the game summary screen when the correct number is guessed
-  useEffect(() => {
-    let userNumber = Number(number);
-    if(guessedNumber === userNumber){
-      router.replace("/gameSummary");
-    }
-  }, [guessedNumber, number, router])
-
   return (
     <>
       <StatusBar style='light'></StatusBar>
       <LinearGradient style={styles.container} colors={[colors.primary500, colors.secondary500]}>
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, {marginTop: isPortrait ? null : 20, maxWidth: isPortrait ? null : "50%"}]}>
           <Title value="Opponent's Guess"></Title>
           
           {/* number label */}
-          <View style={styles.numberDisplay}>
+          <View style={[styles.numberDisplay, {maxWidth: isPortrait ? "30%" : "20%", flex: isPortrait ? 1 : 0, paddingVertical: isPortrait ? null : 15}]}>
             <Text style={styles.numberText}>{guessedNumber}</Text>
           </View>
 
@@ -98,9 +112,11 @@ const GameScreen = () => {
           </View>
 
           {/* guess list */}
-          <View style={styles.guessListContainer}>
-            <GuessList></GuessList>
-          </View>
+          <ScrollView ref={scrollViewRef} style={[styles.guessListContainer, {marginTop: isPortrait ? 20 : 0, flex: isPortrait ? 3 : 1}]} alwaysBounceVertical={true} bounces={true}>
+            <View>
+              <GuessList></GuessList>
+            </View>
+          </ScrollView>
 
           {/* conditionally render modal */}
           {
@@ -123,7 +139,6 @@ const styles = StyleSheet.create({
   },
 
   numberDisplay: {
-    flex: 1,
     borderWidth: 2,
     borderRadius: 8,
     borderColor: colors.secondary600,
@@ -159,8 +174,9 @@ const styles = StyleSheet.create({
   },
 
   guessListContainer: {
-    flex: 3,
+    // flex: 3,
     width: "80%",
+    // marginTop: 20,
   },
 
   text: {

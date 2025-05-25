@@ -1,12 +1,16 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, useWindowDimensions } from "react-native";
 
 type ValueProps = {
     value: string;
 }
 
 const Title = ({value}: ValueProps) => {
+    const {width, height} = useWindowDimensions();
+    const isPortrait = height >= width;
+
+    
     return (
-        <View style={styles.titleContainer}>
+        <View style={[styles.titleContainer, {marginTop: isPortrait ? 100 : 20, marginBottom: isPortrait ? 30 : 20}]}>
             <Text style={styles.text}>{value}</Text>
         </View>
     )
@@ -14,15 +18,12 @@ const Title = ({value}: ValueProps) => {
 
 const styles = StyleSheet.create({
     titleContainer: {
-        flex: 1,
         alignItems: "center",
         justifyContent: "center",
         maxWidth: "80%",
         width: 500,
-        // marginVertical: 20,
-        // padding: 10,
-
     },
+
     text: {
         color: '#fff',
         borderStyle: "solid",
