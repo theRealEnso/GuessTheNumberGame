@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, useWindowDimensions } from "react-native";
+import { StyleSheet, View, Text, useWindowDimensions, Platform } from "react-native";
 
 type ValueProps = {
     value: string;
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         borderStyle: "solid",
         borderColor: "#fff",
-        borderWidth: 2,
+        borderWidth: Platform.OS === "android" ? 2 : 0,
         paddingVertical: 12,
         paddingHorizontal: 24,
         fontSize: 24,

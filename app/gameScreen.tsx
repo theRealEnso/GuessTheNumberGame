@@ -35,9 +35,8 @@ const GameScreen = () => {
     minBoundary, 
     maxBoundary, 
     setMinBoundary, 
-    setMaxBoundary, 
+    setMaxBoundary,
     setHintMessage, 
-    setGuessCount,
   } = useContext(NumberContext);
 
   // navigate user to the game summary screen when the correct number is guessed
@@ -118,8 +117,11 @@ const GameScreen = () => {
 
           {/* conditionally render modal */}
           {
-            showModal && <HintModal setShowModal={setShowModal}></HintModal>
+            showModal && (
+              <HintModal setShowModal={setShowModal}/>
+            )
           }
+
         </SafeAreaView>
       </LinearGradient>
     </>
